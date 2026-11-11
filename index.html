@@ -4,30 +4,103 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>hr1933 的主页</title>
+    <style>
+        :root {
+            --bg: #121212;
+            --card: #1e1e1e;
+            --text: #e0e0e0;
+            --link: #4caf50;
+            --link-hover: #81c784;
+            --border: #333;
+        }
+        body {
+            background-color: var(--bg);
+            color: var(--text);
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+            line-height: 1.6;
+            margin: 0;
+            padding: 20px;
+            display: flex;
+            justify-content: center;
+        }
+        .container {
+            max-width: 600px;
+            width: 100%;
+            background: var(--card);
+            padding: 30px;
+            border-radius: 12px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.5);
+            border: 1px solid var(--border);
+        }
+        h1 {
+            color: #fff;
+            font-size: 24px;
+            border-bottom: 2px solid var(--link);
+            padding-bottom: 10px;
+        }
+        h2 {
+            font-size: 18px;
+            margin-top: 30px;
+            color: #fff;
+        }
+        a {
+            color: var(--link);
+            text-decoration: none;
+            transition: color 0.2s;
+        }
+        a:hover {
+            color: var(--link-hover);
+            text-decoration: underline;
+        }
+        ul {
+            padding-left: 20px;
+        }
+        li {
+            margin-bottom: 10px;
+        }
+        hr {
+            border: 0;
+            height: 1px;
+            background: var(--border);
+            margin: 30px 0;
+        }
+        .highlight {
+            background-color: rgba(76, 175, 80, 0.1);
+            border-left: 4px solid var(--link);
+            padding: 10px 15px;
+            border-radius: 4px;
+            margin: 15px 0;
+        }
+    </style>
 </head>
 <body>
-    <!-- 如果你看到第1行文字是红色的，那说明显示正常。 -->
-    <h1 style="color: red;">欢迎来到 hr1933 的主页!</h1>
+    <div class="container">
+        <h1>欢迎来到 hr1933 的主页</h1>
 
-    <h2>我常用的链接</h2>
-    <ul>
-        <li>回到我的 <a href="https://github.com/hr1933/hr1933">GitHub 仓库主页</a></li>
-        <li>访问我的 <a href="https://github.com/hr1933">GitHub 个人资料</a></li>
-        <li>搜索 <a href="https://www.google.com">Google</a></li>
-      <li>这里！<a href="https://hr1933.github.io/a/">点击查看1933的作品集</a></li>
-       <li>这里！<a href="https://hr1933.github.io/1933/">我的第一个hello world!页面</a></li>
-    </ul>
-    <p>也可以直接点击链接：<a href="https://github.com/hr1933/hr1933">https://github.com/hr1933/hr1933</a></p>
+        <h2>我常用的链接</h2>
+        <ul>
+            <li>回到我的 <a href="https://github.com/hr1933/hr1933">GitHub 仓库主页</a></li>
+            <li>访问我的 <a href="https://github.com/hr1933">GitHub 个人资料</a></li>
+            <li>搜索 <a href="https://www.google.com">Google</a></li>
+            <li>这里！<a href="https://hr1933.github.io/a/">点击查看1933的作品集</a></li>
+            <li>这里！<a href="https://hr1933.github.io/1933/">我的第一个 hello world! 页面</a></li>
+        </ul>
 
-    <hr>
+        <div class="highlight">
+            <li style="list-style: none; margin: 0;">✨ <a href="SUPREME.GLORY.TO.1933.html">点此查看演示（适合做屏保）</a></li>
+        </div>
 
-  
-    <h2>📬 联系我们</h2>
-    <p>如有任何问题或合作意向，欢迎通过以下方式联系我：</p>
-    <ul>
-        <li>发送邮件至 <a href="hr1933@qq.com">hr1933@qq.com</a></li>
-        <li>或直接在 GitHub 上 <a href="https://github.com/hr1933/hr1933/">提交 Issue</a></li>
-    </ul>
-    <p>期待您的来信！</p>
+        <p>也可以直接点击链接：<a href="https://github.com/hr1933/hr1933">https://github.com/hr1933/hr1933</a></p>
+
+        <hr>
+
+        <h2>📬 联系我们</h2>
+        <p>如有任何问题或合作意向，欢迎通过以下方式联系我：</p>
+        <ul>
+            <li>发送邮件至 <a href="mailto:hr1933@qq.com">hr1933@qq.com</a></li>
+            <li>或直接在 GitHub 上 <a href="https://github.com/hr1933/hr1933/">提交 Issue</a></li>
+        </ul>
+        <p>期待您的来信！</p>
+    </div>
 </body>
 </html>
