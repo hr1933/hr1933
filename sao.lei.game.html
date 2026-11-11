@@ -2,394 +2,129 @@
 <html lang="zh-CN">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
-    <title>极客扫雷</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <meta name="theme-color" content="#121212">
+    <title>hr1933 的主页</title>
     <style>
         :root {
-            --bg: #1e1e1e;
-            --panel: #2d2d2d;
-            --cell-base: #444;
-            --cell-light: #555;
-            --cell-dark: #333;
-            --cell-open: #1e1e1e;
-            --text: #fff;
-            --btn: #007aff;
+            --bg: #121212;
+            --card: #1e1e1e;
+            --text: #e0e0e0;
+            --link: #4caf50;
+            --link-hover: #81c784;
+            --border: #333;
         }
+        *, *::before, *::after { box-sizing: border-box; }
 
-        * {
-            box-sizing: border-box;
-            margin: 0;
-            padding: 0;
-            user-select: none;
-            -webkit-user-select: none;
-            -webkit-touch-callout: none;
-            -webkit-tap-highlight-color: transparent;
-            touch-action: manipulation;
-            font-family: monospace;
-        }
+        html { -webkit-text-size-adjust: 100%; }
 
         body {
             background-color: var(--bg);
             color: var(--text);
-            display: flex;
-            flex-direction: column;
-            align-items: center;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "PingFang SC", "Microsoft YaHei", sans-serif;
+            line-height: 1.6;
+            margin: 0;
+            padding: clamp(10px, 3vw, 20px);
             min-height: 100vh;
-            padding: 10px;
-            overflow-x: hidden;
-        }
-
-        .panel {
-            width: 100%;
-            max-width: 400px;
-            background: var(--panel);
-            padding: 15px;
-            border-radius: 12px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 15px;
-            box-shadow: 0 4px 10px rgba(0,0,0,0.3);
-        }
-
-        .stat {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            font-size: 1.2rem;
-            font-weight: bold;
-        }
-
-        .stat span { font-size: 0.8rem; color: #aaa; font-weight: normal; margin-bottom: 2px;}
-
-        .controls {
-            display: flex;
-            gap: 10px;
-        }
-
-        button {
-            background: #444;
-            color: white;
-            border: none;
-            padding: 10px 15px;
-            border-radius: 8px;
-            font-size: 1rem;
-            font-weight: bold;
-            cursor: pointer;
-            transition: background 0.1s;
-        }
-        button:active { background: #666; }
-        button.mode-flag { background: #e63946; }
-        button.mode-dig { background: var(--btn); }
-
-        #game-board {
-            display: grid;
-            gap: 2px;
-            background: var(--cell-dark);
-            padding: 4px;
-            border-radius: 8px;
-            box-shadow: 0 4px 10px rgba(0,0,0,0.5);
-        }
-
-        .cell {
-            width: 32px;
-            height: 32px;
-            background: var(--cell-base);
-            border-radius: 4px;
+            min-height: 100dvh;
             display: flex;
             justify-content: center;
-            align-items: center;
-            font-size: 1.2rem;
-            font-weight: bold;
-            cursor: pointer;
-            transition: background 0.1s;
+            align-items: flex-start;
         }
-
-        @media (max-width: 400px) {
-            .cell { width: 28px; height: 28px; font-size: 1rem; }
+        .container {
+            max-width: 600px;
+            width: 100%;
+            background: var(--card);
+            padding: clamp(16px, 4.5vw, 30px);
+            border-radius: clamp(8px, 2.5vw, 12px);
+            box-shadow: 0 4px 20px rgba(0,0,0,0.5);
+            border: 1px solid var(--border);
+            /* 兼容刘海屏 */
+            padding-left: max(clamp(16px, 4.5vw, 30px), env(safe-area-inset-left));
+            padding-right: max(clamp(16px, 4.5vw, 30px), env(safe-area-inset-right));
         }
-        @media (max-width: 330px) {
-            .cell { width: 24px; height: 24px; font-size: 0.9rem; }
-        }
-
-        .cell:active { background: var(--cell-light); }
-        
-        .cell.open {
-            background: var(--cell-open);
-            cursor: default;
-        }
-        .cell.open:active { background: var(--cell-open); }
-
-        .n1 { color: #00d2ff; }
-        .n2 { color: #00e676; }
-        .n3 { color: #ffea00; }
-        .n4 { color: #ff9100; }
-        .n5 { color: #ff1744; }
-        .n6 { color: #d500f9; }
-        .n7 { color: #fff; }
-        .n8 { color: #888; }
-
-        .cell.mine { background: #ff1744 !important; }
-
-        /* 极简版权页脚 */
-        .footer {
-            margin-top: auto;
-            padding-top: 30px;
+        h1 {
+            color: #fff;
+            font-size: clamp(20px, 5.5vw, 24px);
+            line-height: 1.3;
+            border-bottom: 2px solid var(--link);
             padding-bottom: 10px;
-            font-size: 11px;
-            color: #666;
-            text-align: center;
+            margin: 0 0 10px;
+        }
+        h2 {
+            font-size: clamp(16px, 4.5vw, 18px);
+            margin: 28px 0 10px;
+            color: #fff;
+        }
+        a {
+            color: var(--link);
+            text-decoration: none;
+            transition: color 0.2s;
+            overflow-wrap: anywhere;
+            word-break: break-word;
+        }
+        a:hover { color: var(--link-hover); text-decoration: underline; }
+
+        ul { padding-left: 20px; margin: 10px 0; }
+        li { margin-bottom: 10px; }
+
+        li a, p a {
+            display: inline-block;
+            padding: 2px 0;
+        }
+
+        hr { border: 0; height: 1px; background: var(--border); margin: 28px 0; }
+
+        .highlight {
+            background-color: rgba(76, 175, 80, 0.1);
+            border-left: 4px solid var(--link);
+            border-radius: 4px;
+            margin: 16px 0;
+        }
+        .highlight a {
+            display: block;
+            padding: 12px 15px;
+            font-weight: 500;
+        }
+        .highlight a:hover { background-color: rgba(76, 175, 80, 0.12); text-decoration: none; }
+
+        @media (max-width: 480px) {
+            ul { padding-left: 16px; }
+            h2 { margin-top: 24px; }
+            .container { box-shadow: 0 2px 12px rgba(0,0,0,0.45); }
+            .highlight a { padding: 12px; }
         }
     </style>
 </head>
 <body>
+    <div class="container">
+        <h1>欢迎来到 hr1933 的主页</h1>
 
-<div class="panel">
-    <div class="stat">
-        <span>剩余雷数</span>
-        <div id="mine-count">10</div>
+        <h2>我常用的链接</h2>
+        <ul>
+            <li>回到我的 <a href="https://github.com/hr1933/hr1933">GitHub 仓库主页</a></li>
+            <li>访问我的 <a href="https://github.com/hr1933">GitHub 个人资料</a></li>
+            <li>搜索 <a href="https://www.google.com">Google</a></li>
+            <li>这里！<a href="https://hr1933.github.io/a/">点击查看1933的作品集</a></li>
+            <li>这里！<a href="https://hr1933.github.io/1933/">我的第一个 hello world! 页面</a></li>
+            <li>这里！<a href="sao.lei.game.html">极客扫雷（纯离线版）</a></li>
+        </ul>
+
+        <div class="highlight">
+            <a href="SUPREME.GLORY.TO.1933.html">点此查看演示（适合做屏保）</a>
+        </div>
+
+        <p>也可以直接点击链接：<a href="https://github.com/hr1933/hr1933">https://github.com/hr1933/hr1933</a></p>
+
+        <hr>
+
+        <h2>联系我们</h2>
+        <p>如有任何问题或合作意向，欢迎通过以下方式联系我：</p>
+        <ul>
+            <li>发送邮件至 <a href="mailto:hr1933@qq.com">hr1933@qq.com</a></li>
+            <li>或直接在 GitHub 上 <a href="https://github.com/hr1933/hr1933/">提交 Issue</a></li>
+        </ul>
+        <p>期待您的来信！</p>
     </div>
-    
-    <div class="controls">
-        <button id="btn-mode" class="mode-dig" onclick="toggleMode()">⛏️ 挖雷</button>
-        <button onclick="initGame()">🔄 重开</button>
-    </div>
-
-    <div class="stat">
-        <span>时间</span>
-        <div id="timer">0</div>
-    </div>
-</div>
-
-<div id="game-board"></div>
-
-<div class="footer">
-    ©1933保留所有权利
-</div>
-
-<script>
-    const ROWS = 9;
-    const COLS = 9;
-    const MINES = 10;
-
-    let board = [];
-    let isGameOver = false;
-    let isFirstClick = true;
-    let isFlagMode = false;
-    
-    let minesLeft = MINES; 
-    let flagsPlaced = 0; 
-    let timerInterval = null;
-    let timeElapsed = 0;
-    let cellsOpened = 0;
-
-    const boardEl = document.getElementById('game-board');
-    const mineCountEl = document.getElementById('mine-count');
-    const timerEl = document.getElementById('timer');
-    const modeBtn = document.getElementById('btn-mode');
-
-    function initGame() {
-        clearInterval(timerInterval);
-        timeElapsed = 0;
-        timerEl.innerText = '0';
-        minesLeft = MINES;
-        flagsPlaced = 0;
-        mineCountEl.innerText = minesLeft;
-        isGameOver = false;
-        isFirstClick = true;
-        cellsOpened = 0;
-        board = [];
-        
-        boardEl.style.gridTemplateColumns = `repeat(${COLS}, 1fr)`;
-        boardEl.innerHTML = '';
-
-        for (let r = 0; r < ROWS; r++) {
-            let row = [];
-            for (let c = 0; c < COLS; c++) {
-                const cell = {
-                    isMine: false,
-                    isOpen: false,
-                    isFlag: false,
-                    neighborMines: 0,
-                    el: document.createElement('div')
-                };
-                cell.el.className = 'cell';
-                cell.el.onclick = () => handleCellClick(r, c);
-                
-                boardEl.appendChild(cell.el);
-                row.push(cell);
-            }
-            board.push(row);
-        }
-    }
-
-    function toggleMode() {
-        isFlagMode = !isFlagMode;
-        if (isFlagMode) {
-            modeBtn.innerText = '🚩 插旗';
-            modeBtn.className = 'mode-flag';
-        } else {
-            modeBtn.innerText = '⛏️ 挖雷';
-            modeBtn.className = 'mode-dig';
-        }
-    }
-
-    function generateMines(firstR, firstC) {
-        let minesPlaced = 0;
-        while (minesPlaced < MINES) {
-            let r = Math.floor(Math.random() * ROWS);
-            let c = Math.floor(Math.random() * COLS);
-            if (!board[r][c].isMine && (Math.abs(r - firstR) > 1 || Math.abs(c - firstC) > 1)) {
-                board[r][c].isMine = true;
-                minesPlaced++;
-            }
-        }
-        for (let r = 0; r < ROWS; r++) {
-            for (let c = 0; c < COLS; c++) {
-                if (!board[r][c].isMine) {
-                    let count = 0;
-                    for (let i = -1; i <= 1; i++) {
-                        for (let j = -1; j <= 1; j++) {
-                            let nr = r + i, nc = c + j;
-                            if (nr >= 0 && nr < ROWS && nc >= 0 && nc < COLS && board[nr][nc].isMine) {
-                                count++;
-                            }
-                        }
-                    }
-                    board[r][c].neighborMines = count;
-                }
-            }
-        }
-    }
-
-    function handleCellClick(r, c) {
-        if (isGameOver) return;
-        const cell = board[r][c];
-        if (cell.isOpen) return;
-
-        if (isFlagMode) {
-            if (!cell.isFlag) {
-                if (flagsPlaced >= MINES) return; 
-                
-                cell.isFlag = true;
-                cell.el.innerText = '🚩';
-                flagsPlaced++;
-                
-                if (cell.isMine) {
-                    minesLeft--;
-                    mineCountEl.innerText = minesLeft;
-                }
-            } else {
-                cell.isFlag = false;
-                cell.el.innerText = '';
-                flagsPlaced--;
-                
-                if (cell.isMine) {
-                    minesLeft++;
-                    mineCountEl.innerText = minesLeft;
-                }
-            }
-            
-            if (minesLeft === 0) {
-                isGameOver = true;
-                clearInterval(timerInterval);
-                autoClearSafeZones();
-                setTimeout(() => alert('🎉 牛逼！排雷成功！'), 300);
-            }
-            return;
-        }
-
-        if (cell.isFlag) {
-            cell.isFlag = false;
-            cell.el.innerText = '';
-            flagsPlaced--;
-            if (cell.isMine) {
-                minesLeft++;
-                mineCountEl.innerText = minesLeft;
-            }
-        }
-
-        if (isFirstClick) {
-            generateMines(r, c);
-            isFirstClick = false;
-            startTimer();
-        }
-
-        if (cell.isMine) {
-            gameOver(cell);
-            return;
-        }
-
-        openCell(r, c);
-        
-        if (cellsOpened === ROWS * COLS - MINES) {
-            isGameOver = true;
-            clearInterval(timerInterval);
-            setTimeout(() => alert('🎉 牛逼！你把安全区全挖开了！'), 100);
-        }
-    }
-
-    function autoClearSafeZones() {
-        for (let r = 0; r < ROWS; r++) {
-            for (let c = 0; c < COLS; c++) {
-                if (!board[r][c].isMine && !board[r][c].isOpen) {
-                    board[r][c].isOpen = true;
-                    board[r][c].el.className = 'cell open';
-                    if (board[r][c].neighborMines > 0) {
-                        board[r][c].el.innerText = board[r][c].neighborMines;
-                        board[r][c].el.classList.add(`n${board[r][c].neighborMines}`);
-                    }
-                }
-            }
-        }
-    }
-
-    function openCell(r, c) {
-        if (r < 0 || r >= ROWS || c < 0 || c >= COLS) return;
-        const cell = board[r][c];
-        if (cell.isOpen || cell.isFlag) return;
-
-        cell.isOpen = true;
-        cellsOpened++;
-        cell.el.className = 'cell open';
-        
-        if (cell.neighborMines > 0) {
-            cell.el.innerText = cell.neighborMines;
-            cell.el.classList.add(`n${cell.neighborMines}`);
-        } else {
-            for (let i = -1; i <= 1; i++) {
-                for (let j = -1; j <= 1; j++) {
-                    openCell(r + i, c + j);
-                }
-            }
-        }
-    }
-
-    function gameOver(clickedCell) {
-        isGameOver = true;
-        clearInterval(timerInterval);
-        clickedCell.el.className = 'cell open mine';
-        clickedCell.el.innerText = '💥';
-        
-        for (let r = 0; r < ROWS; r++) {
-            for (let c = 0; c < COLS; c++) {
-                if (board[r][c].isMine && !board[r][c].isFlag) {
-                    board[r][c].el.innerText = '💣';
-                    board[r][c].el.style.background = '#333';
-                }
-            }
-        }
-        setTimeout(() => alert('💥 Boom！游戏结束，重新开始吧。'), 100);
-    }
-
-    function startTimer() {
-        timerInterval = setInterval(() => {
-            timeElapsed++;
-            timerEl.innerText = timeElapsed;
-        }, 1000);
-    }
-
-    initGame();
-</script>
 </body>
 </html>
