@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
 <title>SUPREME GLORY TO 1933</title>
 <style>
   body {
@@ -10,30 +10,60 @@
     padding: 0;
     background-color: #000;
     overflow: hidden;
+    height: 100vh;
+    height: 100dvh;
+    user-select: none;
+    -webkit-user-select: none;
+    -webkit-tap-highlight-color: transparent;
+    touch-action: none;
   }
   canvas {
     display: block;
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 1;
+  }
+  .footer {
+    position: absolute;
+    bottom: 10px;
+    left: 0;
+    width: 100%;
+    text-align: center;
+    font-size: 11px;
+    color: rgba(0, 255, 0, 0.3);
+    font-family: monospace;
+    z-index: 2;
+    pointer-events: none;
   }
 </style>
 </head>
 <body>
 <canvas id="matrix"></canvas>
+<div class="footer">©1933保留所有权利</div>
+
 <script>
   const canvas = document.getElementById('matrix');
   const ctx = canvas.getContext('2d');
   
-  canvas.width = window.innerWidth;
-  canvas.height = window.innerHeight;
-
   const letters = 'SUPREME GLORY TO 1933';
   const fontSize = 20;
-  let columns = Math.floor(canvas.width / fontSize);
+  let columns;
   let drops = [];
   let offsets = [];
+  let timer = null;
 
-  for (let x = 0; x < columns; x++) {
-    drops[x] = Math.floor(Math.random() * -30);
-    offsets[x] = Math.floor(Math.random() * letters.length);
+  function initCanvas() {
+    canvas.width = window.innerWidth;
+    canvas.height = window.innerHeight;
+    columns = Math.floor(canvas.width / fontSize);
+    drops = [];
+    offsets = [];
+    
+    for (let x = 0; x < columns; x++) {
+      drops[x] = Math.floor(Math.random() * -50);
+      offsets[x] = Math.floor(Math.random() * letters.length);
+    }
   }
 
   function draw() {
@@ -52,27 +82,25 @@
         ctx.fillText(text, i * fontSize, y);
       }
 
-      if (y > canvas.height && Math.random() > 0.95) {
-        drops[i] = 0;
+      if (y > canvas.height) {
+        if (Math.random() > 0.975) {
+          drops[i] = 0;
+        }
       } else {
         drops[i]++;
       }
     }
   }
 
-  setInterval(draw, 500);
+  function startAnimation() {
+    if (timer) clearInterval(timer);
+    initCanvas();
+    timer = setInterval(draw, 500);
+  }
 
-  window.addEventListener('resize', () => {
-    canvas.width = window.innerWidth;
-    canvas.height = window.innerHeight;
-    columns = Math.floor(canvas.width / fontSize);
-    drops = [];
-    offsets = [];
-    for (let x = 0; x < columns; x++) {
-      drops[x] = Math.floor(Math.random() * -30);
-      offsets[x] = Math.floor(Math.random() * letters.length);
-    }
-  });
+  startAnimation();
+
+  window.addEventListener('resize', startAnimation);
 </script>
 </body>
 </html>
