@@ -48,6 +48,9 @@
             border: 1px solid var(--border);
             padding-left: max(clamp(16px, 4.5vw, 30px), env(safe-area-inset-left));
             padding-right: max(clamp(16px, 4.5vw, 30px), env(safe-area-inset-right));
+            display: flex;
+            flex-direction: column;
+            min-height: 80vh;
         }
         h1 {
             color: #fff;
@@ -80,6 +83,15 @@
         }
 
         hr { border: 0; height: 1px; background: var(--border); margin: 28px 0; }
+
+        .footer {
+            margin-top: auto;
+            padding-top: 30px;
+            padding-bottom: 10px;
+            font-size: 11px;
+            color: #666;
+            text-align: center;
+        }
 
         @media (max-width: 480px) {
             ul { padding-left: 16px; }
@@ -114,6 +126,10 @@
             <li>或直接在 GitHub 上 <a href="https://github.com/hr1933/hr1933/" target="_blank" rel="noopener noreferrer">提交 Issue</a></li>
         </ul>
         <p>期待您的来信！</p>
+
+        <div class="footer">
+            ©1933保留所有权利
+        </div>
     </div>
 </body>
 </html>
