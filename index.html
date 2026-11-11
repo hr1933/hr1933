@@ -60,7 +60,7 @@
             color: var(--link);
             text-decoration: none;
             transition: color 0.2s;
-            overflow-wrap: anywhere;   /* 关键：长链接自动折行 */
+            overflow-wrap: anywhere;
             word-break: break-word;
         }
         a:hover { color: var(--link-hover); text-decoration: underline; }
@@ -68,7 +68,6 @@
         ul { padding-left: 20px; margin: 10px 0; }
         li { margin-bottom: 10px; }
 
-        /* 触摸友好：手机上点击区域更大 */
         li a, p a {
             display: inline-block;
             padding: 2px 0;
@@ -83,13 +82,12 @@
             margin: 16px 0;
         }
         .highlight a {
-            display: block;            /* 整块可点，手机上更好按 */
+            display: block;
             padding: 12px 15px;
             font-weight: 500;
         }
         .highlight a:hover { background-color: rgba(76, 175, 80, 0.12); text-decoration: none; }
 
-        /* 小屏微调 */
         @media (max-width: 480px) {
             ul { padding-left: 16px; }
             h2 { margin-top: 24px; }
@@ -109,17 +107,18 @@
             <li>搜索 <a href="https://www.google.com">Google</a></li>
             <li>这里！<a href="https://hr1933.github.io/a/">点击查看1933的作品集</a></li>
             <li>这里！<a href="https://hr1933.github.io/1933/">我的第一个 hello world! 页面</a></li>
+            <li>这里！<a href="sao.lei.game.html">极客扫雷（纯离线版）</a></li>
         </ul>
 
         <div class="highlight">
-            <a href="SUPREME.GLORY.TO.1933.html">✨ 点此查看演示（适合做屏保）</a>
+            <a href="SUPREME.GLORY.TO.1933.html">点此查看演示（适合做屏保）</a>
         </div>
 
         <p>也可以直接点击链接：<a href="https://github.com/hr1933/hr1933">https://github.com/hr1933/hr1933</a></p>
 
         <hr>
 
-        <h2>📬 联系我们</h2>
+        <h2>联系我们</h2>
         <p>如有任何问题或合作意向，欢迎通过以下方式联系我：</p>
         <ul>
             <li>发送邮件至 <a href="mailto:hr1933@qq.com">hr1933@qq.com</a></li>
