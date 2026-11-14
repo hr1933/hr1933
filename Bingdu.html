@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>System Breach</title>
+<style>
+    body { margin: 0; padding: 0; background: #000; color: #00ff00; font-family: monospace; overflow: hidden; height: 100vh; }
+    #matrix-bg { position: absolute; top: 0; left: 0; width: 100%; height: 100%; z-index: 1; opacity: 0.3; pointer-events: none; }
+    .fake-popup { position: absolute; background: #c0c0c0; border: 2px solid #fff; border-right-color: #555; border-bottom-color: #555; padding: 10px; font-family: sans-serif; color: #000; font-size: 12px; z-index: 10; box-shadow: 2px 2px 10px rgba(0,0,0,0.8); }
+    #countdown-container { position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); z-index: 5; text-align: center; color: #ff0000; text-shadow: 0 0 20px #ff0000; pointer-events: none; }
+    #countdown { font-size: 120px; font-weight: bold; margin: 0; line-height: 1; }
+    .countdown-text { font-size: 20px; letter-spacing: 5px; margin-top: 10px; }
+    #ethics-screen { position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: #0a0a0a; display: none; flex-direction: column; justify-content: center; align-items: center; z-index: 999; text-align: center; padding: 20px; box-sizing: border-box; opacity: 0; transition: opacity 2s ease; }
+    #ethics-screen h1 { color: #4caf50; font-size: 28px; margin-bottom: 20px; letter-spacing: 2px; }
+    #ethics-screen p { color: #aaa; font-size: 16px; line-height: 1.8; max-width: 500px; }
+    .btn { margin-top: 40px; padding: 10px 20px; background: transparent; border: 1px solid #4caf50; color: #4caf50; cursor: pointer; font-family: monospace; font-size: 16px; transition: 0.3s; }
+    .btn:hover { background: #4caf50; color: #000; }
+</style>
+</head>
+<body>
+
+<canvas id="matrix-bg"></canvas>
+<div id="popup-container"></div>
+
+<div id="countdown-container">
+    <h1 id="countdown">30</h1>
+    <div class="countdown-text">SYSTEM WILL CRASH</div>
+</div>
+
+<div id="ethics-screen">
+    <h1>⚠️ 警告已解除</h1>
+    <p>刚才的一切，只是一场无害的视觉特效表演。</p>
+    <p>但我们希望您明白：<br>真实的网络病毒、木马和黑客攻击，比这可怕一万倍。</p>
+    <p style="color:#fff; font-weight:bold; margin-top:20px;">抵制网络病毒，警惕钓鱼链接。<br>保护个人隐私，共建安全网络。</p>
+    <button class="btn" onclick="closeVirus()">关闭本病毒</button>
+</div>
+
+<script>
+    const canvas = document.getElementById('matrix-bg');
+    const ctx = canvas.getContext('2d');
+    canvas.width = window.innerWidth;
+    canvas.height = window.innerHeight;
+    const letters = '01010101SYSTEMERROR1933HACKED';
+    const fontSize = 16;
+    const columns = canvas.width / fontSize;
+    const drops = Array(Math.floor(columns)).fill(1);
+
+    function drawMatrix() {
+        ctx.fillStyle = 'rgba(0, 0, 0, 0.05)';
+        ctx.fillRect(0, 0, canvas.width, canvas.height);
+        ctx.fillStyle = '#00ff00';
+        ctx.font = fontSize + 'px monospace';
+        for (let i = 0; i < drops.length; i++) {
+            const text = letters.charAt(Math.floor(Math.random() * letters.length));
+            ctx.fillText(text, i * fontSize, drops[i] * fontSize);
+            if (drops[i] * fontSize > canvas.height && Math.random() > 0.975) drops[i] = 0;
+            drops[i]++;
+        }
+    }
+    const matrixInterval = setInterval(drawMatrix, 50);
+
+    const popupContainer = document.getElementById('popup-container');
+    const messages = [
+        "致命错误：系统文件丢失", "警告：C盘正在被格式化...", "检测到未经授权的访问！",
+        "ERROR 0x000000ED", "正在上传您的私密照片...", "防火墙已被强制关闭！",
+        "内存溢出 (Out of Memory)", "尝试获取管理员权限...失败"
+    ];
+    
+    function createPopup() {
+        if (popupContainer.children.length > 60) return;
+        const popup = document.createElement('div');
+        popup.className = 'fake-popup';
+        popup.innerText = messages[Math.floor(Math.random() * messages.length)];
+        popup.style.left = `${Math.random() * (window.innerWidth - 200)}px`;
+        popup.style.top = `${Math.random() * (window.innerHeight - 100)}px`;
+        const title = document.createElement('div');
+        title.style.cssText = "background:#000080; color:#fff; padding:2px 5px; margin-bottom:5px; font-size:10px;";
+        title.innerText = "System32 - 错误";
+        popup.prepend(title);
+        popupContainer.appendChild(popup);
+    }
+    const popupInterval = setInterval(createPopup, 250);
+
+    let timeLeft = 30;
+    const countdownEl = document.getElementById('countdown');
+    const countdownInterval = setInterval(() => {
+        timeLeft--;
+        countdownEl.innerText = timeLeft;
+        if (timeLeft <= 5) countdownEl.style.color = (timeLeft % 2 === 0) ? '#ff0000' : '#ffffff';
+    }, 1000);
+
+    setTimeout(() => {
+        clearInterval(matrixInterval);
+        clearInterval(popupInterval);
+        clearInterval(countdownInterval);
+        popupContainer.innerHTML = '';
+        canvas.style.display = 'none';
+        document.getElementById('countdown-container').style.display = 'none';
+        const ethicsScreen = document.getElementById('ethics-screen');
+        ethicsScreen.style.display = 'flex';
+        setTimeout(() => { ethicsScreen.style.opacity = '1'; }, 100);
+    }, 30000);
+
+    function closeVirus() {
+        document.documentElement.style.backgroundColor = '#ffffff';
+        document.body.style.backgroundColor = '#ffffff';
+        document.body.innerHTML = ''; 
+    }
+</script>
+</body>
+</html>
