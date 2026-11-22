@@ -22,9 +22,7 @@
             --border: #333;
         }
         *, *::before, *::after { box-sizing: border-box; }
-
         html { -webkit-text-size-adjust: 100%; }
-
         body {
             background-color: var(--bg);
             color: var(--text);
@@ -73,17 +71,10 @@
             word-break: break-word;
         }
         a:hover { color: var(--link-hover); text-decoration: underline; }
-
         ul { padding-left: 20px; margin: 10px 0; }
         li { margin-bottom: 10px; }
-
-        li a, p a {
-            display: inline-block;
-            padding: 2px 0;
-        }
-
+        li a, p a { display: inline-block; padding: 2px 0; }
         hr { border: 0; height: 1px; background: var(--border); margin: 28px 0; }
-
         .footer {
             margin-top: auto;
             padding-top: 30px;
@@ -92,7 +83,11 @@
             color: #666;
             text-align: center;
         }
-
+        .footer a {
+            color: #666;
+            font-size: 11px;
+        }
+        .footer a:hover { color: var(--link-hover); }
         @media (max-width: 480px) {
             ul { padding-left: 16px; }
             h2 { margin-top: 24px; }
@@ -115,7 +110,7 @@
             <li>这里！<a href="SUPREME.GLORY.TO.1933.html" target="_blank" rel="noopener noreferrer">点此查看屏保演示</a></li>
             <li>这里！<a href="octocat.html" target="_blank" rel="noopener noreferrer">点这里看章鱼猫</a></li>
             <li>这里！<a href="Bingdu.html" target="_blank" rel="noopener noreferrer">看一场赛博发疯</a></li>
-<li>这里！<a href="erjingzhi.html" target="_blank" rel="noopener noreferrer">点这里使用1933的二进制转换器</a></li>
+            <li>这里！<a href="erjingzhi.html" target="_blank" rel="noopener noreferrer">点这里使用1933的二进制转换器</a></li>
         </ul>
 
         <p>也可以直接点击链接：<a href="https://github.com/hr1933/hr1933" target="_blank" rel="noopener noreferrer">https://github.com/hr1933/hr1933</a></p>
@@ -132,6 +127,7 @@
 
         <div class="footer">
             ©1933保留所有权利
+            <p style="margin: 6px 0 0;"><a href="https://hr1933.github.io/About-us/" target="_blank" rel="noopener noreferrer">MORE</a></p>
         </div>
     </div>
 </body>
